@@ -1,6 +1,6 @@
-
 /* global ethers task */
 require('@nomiclabs/hardhat-waffle')
+require("dotenv").config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -19,6 +19,33 @@ task('accounts', 'Prints the list of accounts', async () => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
+  defaultNetwork: "hardhat",
+  networks: {
+    hardhat: {
+      forking: {
+        url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+      },
+      chainId: 1337,
+    },
+    ropsten: {
+      chainId: 3,
+      url: process.env.API_URL,
+      accounts: {
+        mnemonic: process.env.MNEMONIC,
+      },
+      gas: 2100000,
+      gasPrice: 8000000000,
+    },
+    mumbai: {
+      chainId: 80001,
+      url: "https://rpc-mumbai.maticvigil.com/",
+      accounts: {
+        mnemonic: "cousin wasp clip dynamic advance devote this million magic bean ceiling anger",
+      },
+      gas: 2100000,
+      gasPrice: 8000000000,
+    }
+  },
   solidity: '0.8.6',
   settings: {
     optimizer: {
